@@ -1,4 +1,4 @@
-package src.StackIterator;
+package StackIterator;
 
 import java.util.Iterator;
 

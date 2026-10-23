@@ -1,20 +1,15 @@
-package src;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-import java.io.*;
-
+// Usage: MergeTwoFiles <first input> <second input> <output file>
 public class MergeTwoFiles {
-    public static void main(String[] args) {
-        String inputPath = "C:\\Users\\User\\Desktop\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\inputLineNumbers.txt";
-        String outputPath = "C:\\Users\\User\\Desktop\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\output.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputPath));
-             PrintWriter writer = new PrintWriter(new FileWriter(outputPath))) {
-            String line = reader.readLine();
-            while (line != null) {
-                writer.println(line);
-                line = reader.readLine();
+    public static void main(String[] args) throws IOException {
+        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(Path.of(args[2])))) {
+            for (int i = 0; i < 2; i++) {
+                Files.readAllLines(Path.of(args[i])).forEach(writer::println);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

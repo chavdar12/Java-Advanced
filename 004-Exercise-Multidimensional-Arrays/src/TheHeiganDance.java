@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Scanner;
 
 public class TheHeiganDance {
@@ -13,16 +11,13 @@ public class TheHeiganDance {
         boolean isCloud = false;
         String lastSpell = "";
         while (playerHealth > 0) {
+            // each turn: player hits Heigan, then a lingering cloud hits the player, then both deaths are checked
+            heiganHealth -= playerDamage;
             if (isCloud) {
                 playerHealth -= 3500;
                 isCloud = false;
-                if (playerHealth <= 0) {
-                    lastSpell = "Plague Cloud";
-                    break;
-                }
             }
-            heiganHealth -= playerDamage;
-            if (heiganHealth <= 0) {
+            if (heiganHealth <= 0 || playerHealth <= 0) {
                 break;
             }
             String[] input = scanner.nextLine().split("\\s+");
@@ -56,7 +51,7 @@ public class TheHeiganDance {
             System.out.printf("Heigan: %.2f%n", heiganHealth);
         }
         if (playerHealth <= 0) {
-            System.out.printf("Player: Killed by %s %n", lastSpell);
+            System.out.printf("Player: Killed by %s%n", lastSpell);
         } else {
             System.out.printf("Player: %d%n", playerHealth);
         }

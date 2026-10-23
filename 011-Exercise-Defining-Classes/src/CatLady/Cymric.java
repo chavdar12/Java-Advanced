@@ -1,4 +1,4 @@
-package src.CatLady;
+package CatLady;
 
 public class Cymric extends Cat {
     private final double furLength;

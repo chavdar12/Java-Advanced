@@ -1,4 +1,4 @@
-package src.SpeedRacing;
+package SpeedRacing;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,14 +11,14 @@ public class Main {
 
         int n = Integer.parseInt(reader.readLine());
 
-        LinkedHashMap<String, src.SpeedRacing.Car> cars = new LinkedHashMap<>();
+        LinkedHashMap<String, Car> cars = new LinkedHashMap<>();
 
         for (int i = 0; i < n; i++) {
             String[] tokens = reader.readLine().split(" ");
             String model = tokens[0];
             double fuelAmount = Double.parseDouble(tokens[1]);
             double fuelCost = Double.parseDouble(tokens[2]);
-            src.SpeedRacing.Car car = new src.SpeedRacing.Car(model, fuelAmount, fuelCost);
+            Car car = new Car(model, fuelAmount, fuelCost);
             cars.put(model, car);
         }
         String line = reader.readLine();

@@ -1,9 +1,10 @@
-package src.CustomListSorter;
+package CustomListSorter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CustomList<T extends Comparable> {
+public class CustomList<T extends Comparable<T>> {
     private List<T> collection;
 
     public CustomList() {
@@ -52,12 +53,6 @@ public class CustomList<T extends Comparable> {
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
-
-        for (int i = 0; i < this.collection.size(); i++) {
-            output.append(this.collection.get(i)).append("\n");
-        }
-        output.deleteCharAt(output.length() - 1);
-        return output.toString();
+        return this.collection.stream().map(String::valueOf).collect(Collectors.joining("\n"));
     }
 }

@@ -1,4 +1,4 @@
-package src.RawData;
+package RawData;
 
 public class Cargo {
     private int weight;

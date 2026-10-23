@@ -1,5 +1,3 @@
-package src;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,16 +20,10 @@ public class PrintDiagonalsOfSquareMatrix {
 
         List<Integer> firstDiagonal = new ArrayList<>();
         List<Integer> secondDiagonal = new ArrayList<>();
-
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < rows; col++) {
-                if (row == col) {
-                    firstDiagonal.add(matrix[row][col]);
-                }
-                if (row + col == rows - 1) {
-                    secondDiagonal.add(matrix[row][col]);
-                }
-            }
+        for (int i = 0; i < rows; i++) {
+            firstDiagonal.add(matrix[i][i]);
+            // the secondary diagonal is printed from bottom-left to top-right
+            secondDiagonal.add(matrix[rows - 1 - i][i]);
         }
 
         System.out.println(firstDiagonal.toString().replaceAll("[\\[\\],]", ""));

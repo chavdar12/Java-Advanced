@@ -1,4 +1,4 @@
-package src.ComparingObjects;
+package ComparingObjects;
 
 public class Person implements Comparable<Person> {
     private final String name;

@@ -1,4 +1,4 @@
-package src.RawData;
+package RawData;
 
 public class Engine {
     private int speed;

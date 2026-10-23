@@ -1,6 +1,5 @@
-package src.CustomList;
+package CustomList;
 
-import src.CustomListSorter.CustomList;
 
 import java.io.BufferedReader;
 import java.io.IOException;

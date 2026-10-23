@@ -1,4 +1,4 @@
-package src.Collection;
+package Collection;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -16,7 +16,7 @@ public class ListyIterator implements Iterable<String> {
 
     public ListyIterator(String... strings) {
         this();
-        this.collection = Arrays.asList(strings);
+        this.collection = new ArrayList<>(Arrays.asList(strings));
     }
 
 
@@ -28,7 +28,7 @@ public class ListyIterator implements Iterable<String> {
 
     public void print() {
         if (this.position >= this.collection.size()) {
-            System.out.println("Invalid Operation");
+            System.out.println("Invalid Operation!");
             return;
         }
         System.out.println(this.collection.get(this.position));
@@ -49,7 +49,7 @@ public class ListyIterator implements Iterable<String> {
 
     public void printAll() {
         if (this.collection.isEmpty()) {
-            System.out.println("Invalid Operation");
+            System.out.println("Invalid Operation!");
             return;
         }
         StringBuilder stringBuilder = new StringBuilder();

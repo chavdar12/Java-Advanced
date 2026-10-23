@@ -1,4 +1,4 @@
-package src.PokemonTrainer;
+package PokemonTrainer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

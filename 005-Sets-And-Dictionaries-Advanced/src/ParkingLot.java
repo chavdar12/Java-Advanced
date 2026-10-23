@@ -1,35 +1,25 @@
-package src;
-
-import java.text.DecimalFormat;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class ParkingLot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] input = scanner.nextLine().split(", ");
-        int rows = Integer.parseInt(input[0]);
-        int cols = Integer.parseInt(input[1]);
-        char[][] parkingLot = new char[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            String[] line = scanner.nextLine().split(", ");
-            for (int j = 0; j < cols; j++) {
-                parkingLot[i][j] = line[j].charAt(0);
-            }
-        }
-        String command = scanner.nextLine();
-        while (!command.equals("stop")) {
-            String[] tokens = command.split(" ");
-            int entryRow = Integer.parseInt(tokens[0]);
-            int desiredRow = Integer.parseInt(tokens[1]);
-            int desiredCol = Integer.parseInt(tokens[2]);
-            if (parkingLot[desiredRow][desiredCol] == 'O') {
-                System.out.println("Row " + desiredRow + " full");
+        Set<String> cars = new LinkedHashSet<>();
+        String input = scanner.nextLine();
+        while (!input.equals("END")) {
+            String[] tokens = input.split(", ");
+            if (tokens[0].equals("IN")) {
+                cars.add(tokens[1]);
             } else {
-                int distance = Math.abs(desiredRow - entryRow) + desiredCol + 1;
-                System.out.println(distance);
-                parkingLot[desiredRow][desiredCol] = 'O';
+                cars.remove(tokens[1]);
             }
-            command = scanner.nextLine();
+            input = scanner.nextLine();
+        }
+        if (cars.isEmpty()) {
+            System.out.println("Parking Lot is Empty");
+        } else {
+            cars.forEach(System.out::println);
         }
     }
 }

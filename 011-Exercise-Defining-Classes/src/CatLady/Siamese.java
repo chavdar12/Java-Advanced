@@ -1,4 +1,4 @@
-package src.CatLady;
+package CatLady;
 
 public class Siamese extends Cat {
     private final double earSize;

@@ -1,4 +1,4 @@
-package src.CompanyRoster;
+package CompanyRoster;
 
 public class Employee {
 

@@ -1,5 +1,5 @@
-package src;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class RadioactiveMutantVampireBunnies {
@@ -24,94 +24,62 @@ public class RadioactiveMutantVampireBunnies {
         String commands = scanner.nextLine();
         boolean isWon = false;
         boolean isDead = false;
-        for (int i = 0; i < commands.length(); i++) {
-            char command = commands.charAt(i);
-            switch (command) {
-                case 'U' -> {
-                    if (playerRow - 1 >= 0) {
-                        playerRow--;
-                    } else {
-                        isWon = true;
-                    }
-                }
-                case 'D' -> {
-                    if (playerRow + 1 < rows) {
-                        playerRow++;
-                    } else {
-                        isWon = true;
-                    }
-                }
-                case 'L' -> {
-                    if (playerCol - 1 >= 0) {
-                        playerCol--;
-                    } else {
-                        isWon = true;
-                    }
-                }
-                case 'R' -> {
-                    if (playerCol + 1 < cols) {
-                        playerCol++;
-                    } else {
-                        isWon = true;
-                    }
+        for (int i = 0; i < commands.length() && !isWon && !isDead; i++) {
+            int nextRow = playerRow;
+            int nextCol = playerCol;
+            switch (commands.charAt(i)) {
+                case 'U' -> nextRow--;
+                case 'D' -> nextRow++;
+                case 'L' -> nextCol--;
+                case 'R' -> nextCol++;
+            }
+            matrix[playerRow][playerCol] = '.';
+            if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols) {
+                isWon = true;
+            } else {
+                playerRow = nextRow;
+                playerCol = nextCol;
+                if (matrix[playerRow][playerCol] == 'B') {
+                    isDead = true;
+                } else {
+                    matrix[playerRow][playerCol] = 'P';
                 }
             }
-            if (isWon) {
-                break;
-            }
-            int[][] bunnies = new int[rows * cols][2];
-            int bunnyIndex = 0;
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    if (matrix[row][col] == 'B') {
-                        bunnies[bunnyIndex][0] = row;
-                        bunnies[bunnyIndex][1] = col;
-                        bunnyIndex++;
-                    }
-                }
-            }
-            for (int j = 0; j < bunnyIndex; j++) {
-                int bunnyRow = bunnies[j][0];
-                int bunnyCol = bunnies[j][1];
-                if (bunnyRow - 1 >= 0) {
-                    if (matrix[bunnyRow - 1][bunnyCol] == 'P') {
-                        isDead = true;
-                    }
-                    matrix[bunnyRow - 1][bunnyCol] = 'B';
-                }
-                if (bunnyRow + 1 < rows) {
-                    if (matrix[bunnyRow + 1][bunnyCol] == 'P') {
-                        isDead = true;
-                    }
-                    matrix[bunnyRow + 1][bunnyCol] = 'B';
-                }
-                if (bunnyCol - 1 >= 0) {
-                    if (matrix[bunnyRow][bunnyCol - 1] == 'P') {
-                        isDead = true;
-                    }
-                    matrix[bunnyRow][bunnyCol - 1] = 'B';
-                }
-                if (bunnyCol + 1 < cols) {
-                    if (matrix[bunnyRow][bunnyCol + 1] == 'P') {
-                        isDead = true;
-                    }
-                    matrix[bunnyRow][bunnyCol + 1] = 'B';
-                }
-            }
-            if (isDead) {
-                break;
+            spreadBunnies(matrix);
+            if (!isWon && matrix[playerRow][playerCol] == 'B') {
+                isDead = true;
             }
         }
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                System.out.print(matrix[row][col]);
-            }
-            System.out.println();
+        for (char[] row : matrix) {
+            System.out.println(new String(row));
         }
         if (isWon) {
-            System.out.printf("won: %d %d", playerRow, playerCol);
+            System.out.printf("won: %d %d%n", playerRow, playerCol);
         } else if (isDead) {
-            System.out.printf("dead: %d %d", playerRow, playerCol);
+            System.out.printf("dead: %d %d%n", playerRow, playerCol);
+        }
+    }
+
+    private static void spreadBunnies(char[][] matrix) {
+        List<int[]> bunnies = new ArrayList<>();
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                if (matrix[row][col] == 'B') {
+                    bunnies.add(new int[]{row, col});
+                }
+            }
+        }
+        for (int[] bunny : bunnies) {
+            infect(matrix, bunny[0] - 1, bunny[1]);
+            infect(matrix, bunny[0] + 1, bunny[1]);
+            infect(matrix, bunny[0], bunny[1] - 1);
+            infect(matrix, bunny[0], bunny[1] + 1);
+        }
+    }
+
+    private static void infect(char[][] matrix, int row, int col) {
+        if (row >= 0 && row < matrix.length && col >= 0 && col < matrix[row].length) {
+            matrix[row][col] = 'B';
         }
     }
 }

@@ -1,13 +1,12 @@
-package src.StrategyPattern;
+package StrategyPattern;
 
-import src.ComparingObjects.Person;
 
 import java.util.Comparator;
 
-public class ComparatorPeople implements Comparator<src.ComparingObjects.Person> {
+public class ComparatorPeople implements Comparator<Person> {
 
     @Override
-    public int compare(src.ComparingObjects.Person first, Person second) {
+    public int compare(Person first, Person second) {
         int result = first.getName().length() - second.getName().length();
 
         if (result == 0) {

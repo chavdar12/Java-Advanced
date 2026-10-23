@@ -1,6 +1,5 @@
-package src.RawData;
+package RawData;
 
-import src.SpeedRacing.Car;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class Main {
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    static List<src.SpeedRacing.Car> cars = new ArrayList<>();
+    static List<Car> cars = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -22,13 +21,13 @@ public class Main {
             case "fragile":
                 cars.stream()
                         .filter(car -> car.getCargoType().equals("fragile"))
-                        .filter(src.SpeedRacing.Car::isValidTierPressure)
+                        .filter(Car::isValidTierPressure)
                         .forEach(System.out::println);
                 break;
             case "flamable":
                 cars.stream()
                         .filter(car -> car.getCargoType().equals("flamable"))
-                        .filter(src.SpeedRacing.Car::isValidEnginePower)
+                        .filter(Car::isValidEnginePower)
                         .forEach(System.out::println);
                 break;
         }

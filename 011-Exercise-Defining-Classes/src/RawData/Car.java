@@ -1,10 +1,10 @@
-package src.RawData;
+package RawData;
 
 import java.util.Arrays;
 
 public class Car {
     private String model;
-    private src.RawData.Engine engine;
+    private Engine engine;
     private Cargo cargo;
     private Tire[] tiers;
 

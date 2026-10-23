@@ -1,7 +1,5 @@
-package src.Google;
+package Google;
 
-import src.PokemonTrainer.Pokemon;
-import src.SpeedRacing.Car;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +7,8 @@ import java.util.List;
 public class Person {
     private final String name;
     private Company company;
-    private src.SpeedRacing.Car car;
-    private final List<src.PokemonTrainer.Pokemon> pokemons;
+    private Car car;
+    private final List<Pokemon> pokemons;
     private final List<Parent> parents;
     private final List<Child> children;
 

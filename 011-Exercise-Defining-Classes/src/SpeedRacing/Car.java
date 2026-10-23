@@ -1,4 +1,4 @@
-package src.SpeedRacing;
+package SpeedRacing;
 
 public class Car {
     private String model;

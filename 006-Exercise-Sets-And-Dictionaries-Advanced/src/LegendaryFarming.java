@@ -1,8 +1,7 @@
-package src;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class LegendaryFarming {
     public static void main(String[] args) {
@@ -11,7 +10,7 @@ public class LegendaryFarming {
         keyMaterials.put("shards", 0);
         keyMaterials.put("fragments", 0);
         keyMaterials.put("motes", 0);
-        Map<String, Integer> junkMaterials = new LinkedHashMap<>();
+        Map<String, Integer> junkMaterials = new TreeMap<>();
         boolean isObtained = false;
         while (!isObtained) {
             String[] input = scanner.nextLine().split("\\s+");

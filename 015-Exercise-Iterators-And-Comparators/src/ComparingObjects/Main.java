@@ -1,4 +1,4 @@
-package src.ComparingObjects;
+package ComparingObjects;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,13 +11,13 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String input = reader.readLine();
-        ArrayList<src.ComparingObjects.Person> people = new ArrayList<>();
+        ArrayList<Person> people = new ArrayList<>();
 
         while (!input.equals("END")) {
 
             String[] tokens = input.split(" ");
 
-            src.ComparingObjects.Person p = new src.ComparingObjects.Person(tokens[0], Integer.parseInt(tokens[1]), tokens[2]);
+            Person p = new Person(tokens[0], Integer.parseInt(tokens[1]), tokens[2]);
             people.add(p);
 
             input = reader.readLine();

@@ -1,4 +1,4 @@
-package src.CompanyRoster;
+package CompanyRoster;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,11 +48,7 @@ public class Main {
         }
 
         List<Employee> employeeList = deparments.entrySet().stream()
-                .sorted((emp1, emp2) -> {
-                    double salary1 = emp1.getValue().getEmployees().stream().mapToDouble(Employee::getSalary).sum();
-                    double salary2 = emp2.getValue().getEmployees().stream().mapToDouble(Employee::getSalary).sum();
-                    return Double.compare(salary2, salary1);
-                })
+                .sorted((dep1, dep2) -> Double.compare(averageSalary(dep2.getValue()), averageSalary(dep1.getValue())))
                 .map(emp -> emp.getValue().getEmployees())
                 .findFirst().orElse(null);
 
@@ -66,5 +62,9 @@ public class Main {
                             emp.getEmail(),
                             emp.getAge());
                 });
+    }
+
+    private static double averageSalary(Department department) {
+        return department.getEmployees().stream().mapToDouble(Employee::getSalary).average().orElse(0);
     }
 }

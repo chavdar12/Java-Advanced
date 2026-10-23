@@ -1,33 +1,17 @@
-package src;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
+// Usage: SumBytes <input file>
 public class SumBytes {
-    public static void main(String[] args) {
-        Path path = Path.of("C:\\Users\\User\\Desktop\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\input.txt");
-        try {
-            List<String> lines = Files.readAllLines(path);
-            Set<Character> punctuation = Set.of(',', '.', '!', '?');
-            AtomicInteger sum = new AtomicInteger();
-            for (String line : lines) {
-                for (int i = 0; i < line.length(); i++) {
-                    if (!punctuation.contains(line.charAt(i))) {
-                        sum.addAndGet(line.charAt(i));
-                    }
-                }
+    public static void main(String[] args) throws IOException {
+        long sum = 0;
+        // every character except the line breaks counts, punctuation included
+        for (String line : Files.readAllLines(Path.of(args[0]))) {
+            for (char symbol : line.toCharArray()) {
+                sum += symbol;
             }
-            PrintWriter writer = new PrintWriter(new FileWriter("C:\\Users\\User\\Desktop\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\output.txt"));
-            writer.println(sum);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        System.out.println(sum);
     }
 }

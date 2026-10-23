@@ -1,4 +1,4 @@
-package src.BankAccount;
+package BankAccount;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

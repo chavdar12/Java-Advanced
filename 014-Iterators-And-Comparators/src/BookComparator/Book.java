@@ -1,8 +1,8 @@
-package src.BookComparator;
+package BookComparator;
 
 import java.util.*;
 
-public class Book implements Comparable<src.Library.Book> {
+public class Book implements Comparable<Book> {
     private String title;
     private int year;
     private List<String> authors;
@@ -47,7 +47,7 @@ public class Book implements Comparable<src.Library.Book> {
     }
 
     @Override
-    public int compareTo(src.Library.Book o) {
+    public int compareTo(Book o) {
         int bookTitleResult = this.title.compareTo(o.title);
         if (bookTitleResult == 0) {
             return Integer.compare(this.year, o.year);

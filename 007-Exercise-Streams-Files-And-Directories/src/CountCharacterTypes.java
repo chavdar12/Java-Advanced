@@ -1,35 +1,26 @@
-package src;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
+// Usage: CountCharacterTypes <input file>
 public class CountCharacterTypes {
-    public static void main(String[] args) {
-        Path path = Path.of("C:\\Users\\User\\Desktop\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\input.txt");
-        try {
-            List<String> lines = Files.readAllLines(path);
-            AtomicInteger vowels = new AtomicInteger();
-            AtomicInteger consonants = new AtomicInteger();
-            AtomicInteger punctuation = new AtomicInteger();
-            for (String line : lines) {
-                for (int i = 0; i < line.length(); i++) {
-                    if (line.charAt(i) == 'a' || line.charAt(i) == 'e' || line.charAt(i) == 'i' || line.charAt(i) == 'o' || line.charAt(i) == 'u') {
-                        vowels.addAndGet(1);
-                    } else if (line.charAt(i) == '!' || line.charAt(i) == ',' || line.charAt(i) == '.' || line.charAt(i) == '?') {
-                        punctuation.addAndGet(1);
-                    } else if (line.charAt(i) != ' ') {
-                        consonants.addAndGet(1);
-                    }
+    public static void main(String[] args) throws IOException {
+        int vowels = 0;
+        int consonants = 0;
+        int punctuation = 0;
+        for (String line : Files.readAllLines(Path.of(args[0]))) {
+            for (char symbol : line.toCharArray()) {
+                if ("aeiou".indexOf(symbol) >= 0) {
+                    vowels++;
+                } else if ("!,.?".indexOf(symbol) >= 0) {
+                    punctuation++;
+                } else if (!Character.isWhitespace(symbol)) {
+                    consonants++;
                 }
             }
-            System.out.println("Vowels: " + vowels);
-            System.out.println("Consonants: " + consonants);
-            System.out.println("Punctuation: " + punctuation);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+        System.out.println("Vowels: " + vowels);
+        System.out.println("Consonants: " + consonants);
+        System.out.println("Punctuation: " + punctuation);
     }
 }

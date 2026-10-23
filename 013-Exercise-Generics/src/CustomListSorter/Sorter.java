@@ -1,12 +1,12 @@
-package src.CustomListSorter;
+package CustomListSorter;
 
 
 import java.util.List;
 
 public class Sorter {
-    public static <T extends Comparable> void sort(CustomList<String> list) {
-        List<String> sortedCollection = list.getCollection();
-        sortedCollection.sort(Comparable::compareTo);
+    public static <T extends Comparable<T>> void sort(CustomList<T> list) {
+        List<T> sortedCollection = list.getCollection();
+        sortedCollection.sort(null);
         list.setCollection(sortedCollection);
     }
 }

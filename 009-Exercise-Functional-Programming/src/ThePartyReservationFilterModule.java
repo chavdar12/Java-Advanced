@@ -1,49 +1,40 @@
-package src;
-
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ThePartyReservationFilterModule {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> names = Arrays.stream(scanner.nextLine().split("\\s+")).collect(Collectors.toList());
+        List<String> guests = Arrays.asList(scanner.nextLine().split("\\s+"));
+        // filters are only applied on Print, so a removed filter brings its guests back
+        Map<String, Predicate<String>> filters = new LinkedHashMap<>();
         String input = scanner.nextLine();
         while (!input.equals("Print")) {
             String[] tokens = input.split(";");
-            String command = tokens[0];
-            String filterType = tokens[1];
-            String filterParameter = tokens[2];
-            switch (command) {
-                case "Add filter" -> {
-                    switch (filterType) {
-                        case "Starts with" ->
-                                names = names.stream().filter(name -> !name.startsWith(filterParameter)).collect(Collectors.toList());
-                        case "Ends with" ->
-                                names = names.stream().filter(name -> !name.endsWith(filterParameter)).collect(Collectors.toList());
-                        case "Length" ->
-                                names = names.stream().filter(name -> name.length() != Integer.parseInt(filterParameter)).collect(Collectors.toList());
-                        case "Contains" ->
-                                names = names.stream().filter(name -> !name.contains(filterParameter)).collect(Collectors.toList());
-                    }
-                }
-                case "Remove filter" -> names = switch (filterType) {
-                    case "Starts with" ->
-                            names.stream().filter(name -> name.startsWith(filterParameter)).collect(Collectors.toList());
-                    case "Ends with" ->
-                            names.stream().filter(name -> name.endsWith(filterParameter)).collect(Collectors.toList());
-                    case "Length" ->
-                            names.stream().filter(name -> name.length() == Integer.parseInt(filterParameter)).collect(Collectors.toList());
-                    case "Contains" ->
-                            names.stream().filter(name -> name.contains(filterParameter)).collect(Collectors.toList());
-                    default -> names;
-                };
+            String key = tokens[1] + ";" + tokens[2];
+            if (tokens[0].equals("Add filter")) {
+                filters.put(key, createFilter(tokens[1], tokens[2]));
+            } else {
+                filters.remove(key);
             }
             input = scanner.nextLine();
         }
-        Collections.reverse(names);
-        names.forEach(System.out::println);
+        System.out.println(guests.stream()
+                .filter(guest -> filters.values().stream().noneMatch(filter -> filter.test(guest)))
+                .collect(Collectors.joining(" ")));
+    }
+
+    private static Predicate<String> createFilter(String type, String parameter) {
+        return switch (type) {
+            case "Starts with" -> name -> name.startsWith(parameter);
+            case "Ends with" -> name -> name.endsWith(parameter);
+            case "Length" -> name -> name.length() == Integer.parseInt(parameter);
+            case "Contains" -> name -> name.contains(parameter);
+            default -> name -> false;
+        };
     }
 }

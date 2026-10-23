@@ -1,4 +1,4 @@
-package src.CatLady;
+package CatLady;
 
 public class StreetExtraordinaire extends Cat {
     private final double decibelsOfMeows;

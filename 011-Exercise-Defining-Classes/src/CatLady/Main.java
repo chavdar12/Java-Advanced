@@ -1,4 +1,4 @@
-package src.CatLady;
+package CatLady;
 
 import java.io.BufferedReader;
 import java.io.IOException;

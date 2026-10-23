@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Scanner;
 
 public class ParkingSystem {
@@ -15,33 +13,32 @@ public class ParkingSystem {
             int entryRow = Integer.parseInt(tokens[0]);
             int targetRow = Integer.parseInt(tokens[1]);
             int targetCol = Integer.parseInt(tokens[2]);
-            if (parkingLot[targetRow][targetCol]) {
-                int distance = 1;
-                boolean foundPlace = false;
-                for (int i = 1; i < parkingLot[targetRow].length; i++) {
-                    if (targetCol - i >= 0 && !parkingLot[targetRow][targetCol - i]) {
-                        targetCol -= i;
-                        distance += i;
-                        foundPlace = true;
-                        break;
-                    } else if (targetCol + i < parkingLot[targetRow].length && !parkingLot[targetRow][targetCol + i]) {
-                        targetCol += i;
-                        distance += i;
-                        foundPlace = true;
-                        break;
-                    }
-                }
-                if (foundPlace) {
-                    parkingLot[targetRow][targetCol] = true;
-                    System.out.println(distance + (targetRow + targetCol + entryRow));
-                } else {
-                    System.out.println("Row " + targetRow + " full");
-                }
+            int spot = findSpot(parkingLot[targetRow], targetCol);
+            if (spot == -1) {
+                System.out.println("Row " + targetRow + " full");
             } else {
-                parkingLot[targetRow][targetCol] = true;
-                System.out.println(targetRow + 1 + targetCol + entryRow);
+                parkingLot[targetRow][spot] = true;
+                System.out.println(Math.abs(entryRow - targetRow) + spot + 1);
             }
             command = scanner.nextLine();
         }
+    }
+
+    // Column 0 is the road, so spots start at 1; on a tie the spot closer to the entrance (left) wins
+    private static int findSpot(boolean[] row, int targetCol) {
+        if (!row[targetCol]) {
+            return targetCol;
+        }
+        for (int distance = 1; distance < row.length; distance++) {
+            int left = targetCol - distance;
+            int right = targetCol + distance;
+            if (left >= 1 && !row[left]) {
+                return left;
+            }
+            if (right < row.length && !row[right]) {
+                return right;
+            }
+        }
+        return -1;
     }
 }

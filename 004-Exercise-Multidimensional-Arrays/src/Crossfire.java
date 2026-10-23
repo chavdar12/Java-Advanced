@@ -1,6 +1,8 @@
-package src;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Crossfire {
     public static void main(String[] args) {
@@ -8,13 +10,15 @@ public class Crossfire {
         String[] input = scanner.nextLine().split(" ");
         int rows = Integer.parseInt(input[0]);
         int cols = Integer.parseInt(input[1]);
-        int[][] matrix = new int[rows][cols];
+        // rows shrink as cells are destroyed, so the matrix is jagged
+        List<List<Integer>> matrix = new ArrayList<>();
         int counter = 1;
         for (int row = 0; row < rows; row++) {
+            List<Integer> line = new ArrayList<>();
             for (int col = 0; col < cols; col++) {
-                matrix[row][col] = counter;
-                counter++;
+                line.add(counter++);
             }
+            matrix.add(line);
         }
         String command = scanner.nextLine();
         while (!command.equals("Nuke it from orbit")) {
@@ -22,40 +26,24 @@ public class Crossfire {
             int row = Integer.parseInt(tokens[0]);
             int col = Integer.parseInt(tokens[1]);
             int radius = Integer.parseInt(tokens[2]);
-            for (int i = row - radius; i <= row + radius; i++) {
-                if (isInBounds(matrix, i, col)) {
-                    matrix[i][col] = 0;
-                }
+            for (int r = row - radius; r <= row + radius; r++) {
+                destroy(matrix, r, col);
             }
-            for (int i = col - radius; i <= col + radius; i++) {
-                if (isInBounds(matrix, row, i)) {
-                    matrix[row][i] = 0;
-                }
+            for (int c = col - radius; c <= col + radius; c++) {
+                destroy(matrix, row, c);
             }
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[0].length; j++) {
-                    if (matrix[i][j] == 0) {
-                        for (int k = i; k > 0; k--) {
-                            matrix[k][j] = matrix[k - 1][j];
-                        }
-                        matrix[0][j] = 0;
-                    }
-                }
-            }
+            matrix.forEach(line -> line.removeIf(Objects::isNull));
+            matrix.removeIf(List::isEmpty);
             command = scanner.nextLine();
         }
-        for (int[] ints : matrix) {
-            for (int col = 0; col < matrix[0].length; col++) {
-                if (ints[col] != 0) {
-                    System.out.print(ints[col] + " ");
-                }
-            }
-            System.out.println();
+        for (List<Integer> line : matrix) {
+            System.out.println(line.stream().map(String::valueOf).collect(Collectors.joining(" ")));
         }
     }
 
-    private static boolean isInBounds(int[][] matrix, int i, int col) {
-        return i >= 0 && i < matrix.length && col >= 0 && col < matrix[0].length;
+    private static void destroy(List<List<Integer>> matrix, int row, int col) {
+        if (row >= 0 && row < matrix.size() && col >= 0 && col < matrix.get(row).size()) {
+            matrix.get(row).set(col, null);
+        }
     }
 }
-

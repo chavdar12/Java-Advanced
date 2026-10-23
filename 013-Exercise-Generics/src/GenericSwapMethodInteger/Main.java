@@ -1,6 +1,5 @@
-package src.GenericSwapMethodInteger;
+package GenericSwapMethodInteger;
 
-import src.GenericBox.Box;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class Main {
 
         int n = Integer.parseInt(reader.readLine());
 
-        src.GenericBox.Box<Integer> box = new src.GenericBox.Box<>();
+        Box<Integer> box = new Box<>();
 
         for (int i = 0; i < n; i++) {
             box.getCollection().add(Integer.parseInt(reader.readLine()));
@@ -24,7 +23,7 @@ public class Main {
                 .toArray();
 
         Box.swapper(box.getCollection(), indexes[0], indexes[1]);
-        System.out.println(box);
+        System.out.print(box);
     }
 
 }

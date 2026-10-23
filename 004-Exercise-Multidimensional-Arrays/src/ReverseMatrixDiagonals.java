@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Scanner;
 
 public class ReverseMatrixDiagonals {
@@ -20,9 +18,9 @@ public class ReverseMatrixDiagonals {
         while (row >= 0) {
             int currentRow = row;
             int currentCol = col;
-            while (currentRow < rows && currentCol < cols) {
+            while (currentRow >= 0 && currentCol < cols) {
                 System.out.print(matrix[currentRow][currentCol] + " ");
-                currentRow++;
+                currentRow--;
                 currentCol++;
             }
             System.out.println();

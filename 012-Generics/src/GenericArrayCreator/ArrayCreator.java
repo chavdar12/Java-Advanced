@@ -1,4 +1,4 @@
-package src.GenericArrayCreator;
+package GenericArrayCreator;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

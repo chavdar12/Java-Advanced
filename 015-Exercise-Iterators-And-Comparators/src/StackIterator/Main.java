@@ -1,4 +1,4 @@
-package src.StackIterator;
+package StackIterator;
 
 import java.io.BufferedReader;
 import java.io.IOException;

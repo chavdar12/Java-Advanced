@@ -1,37 +1,22 @@
-package src;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class CompareMatrices {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int[][] firstMatrix = readMatrix(scanner);
+        int[][] secondMatrix = readMatrix(scanner);
+        System.out.println(Arrays.deepEquals(firstMatrix, secondMatrix) ? "equal" : "not equal");
+    }
 
-        int[] firstMatrix = Arrays.stream(scanner.nextLine().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-
-        int[] secondMatrix = Arrays.stream(scanner.nextLine().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-
-        boolean areEqual = true;
-
-        if (firstMatrix.length == secondMatrix.length) {
-            for (int i = 0; i < firstMatrix.length; i++) {
-                if (firstMatrix[i] != secondMatrix[i]) {
-                    areEqual = false;
-                    break;
-                }
-            }
-        } else {
-            areEqual = false;
+    private static int[][] readMatrix(Scanner scanner) {
+        int rows = Integer.parseInt(scanner.nextLine().trim().split("\\s+")[0]);
+        int[][] matrix = new int[rows][];
+        for (int row = 0; row < rows; row++) {
+            matrix[row] = Arrays.stream(scanner.nextLine().trim().split("\\s+"))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
         }
-
-        if (areEqual) {
-            System.out.println("equal");
-        } else {
-            System.out.println("not equal");
-        }
+        return matrix;
     }
 }

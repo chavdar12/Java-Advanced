@@ -1,41 +1,29 @@
-package src;
-
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PoisonousPlants {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
-        String[] input = scanner.nextLine().split("\\s+");
-        ArrayDeque<Integer> plants = new ArrayDeque<>();
-        for (String s : input) {
-            plants.push(Integer.parseInt(s));
+        int[] plants = Arrays.stream(scanner.nextLine().trim().split("\\s+"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        // days[i] = the day plant i dies (0 = never); the stack holds indexes of plants still alive to the left
+        int[] days = new int[n];
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        int maxDays = 0;
+        for (int i = 0; i < n; i++) {
+            int dayOfDeath = 0;
+            while (!stack.isEmpty() && plants[stack.peek()] >= plants[i]) {
+                dayOfDeath = Math.max(dayOfDeath, days[stack.pop()]);
+            }
+            if (!stack.isEmpty()) {
+                days[i] = dayOfDeath + 1;
+            }
+            maxDays = Math.max(maxDays, days[i]);
+            stack.push(i);
         }
-        int days = 0;
-        while (true) {
-            boolean isDead = false;
-            ArrayDeque<Integer> temp = new ArrayDeque<>();
-            int previous = plants.pop();
-            temp.push(previous);
-            while (!plants.isEmpty()) {
-                int current = plants.pop();
-                if (current < previous) {
-                    isDead = true;
-                } else {
-                    temp.push(current);
-                }
-                previous = current;
-            }
-            if (isDead) {
-                days++;
-            } else {
-                break;
-            }
-            while (!temp.isEmpty()) {
-                plants.push(temp.pop());
-            }
-        }
-        System.out.println(days);
+        System.out.println(maxDays);
     }
 }

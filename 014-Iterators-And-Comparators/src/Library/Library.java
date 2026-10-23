@@ -1,9 +1,8 @@
-package src.Library;
+package Library;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
-public class Library<Book> implements Iterable<Book> {
+public class Library implements Iterable<Book> {
     private final Book[] books;
 
     public Library(Book... books) {
@@ -15,16 +14,7 @@ public class Library<Book> implements Iterable<Book> {
         return new LibIterator();
     }
 
-    @Override
-    public void forEach(Consumer action) {
-        for (int i = 0; i < this.books.length; i++) {
-            action.accept(books[i]);
-        }
-    }
-
-
     private class LibIterator implements Iterator<Book> {
-
         private int counter;
 
         @Override

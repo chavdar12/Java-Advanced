@@ -1,17 +1,17 @@
-package src;
-
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CustomComparator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] numbers = Arrays.stream(scanner.nextLine().split("\\s+"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
-        Arrays.sort(numbers);
-        for (int number : numbers) {
-            System.out.print(number + " ");
-        }
+        Comparator<Integer> evensFirst = Comparator.<Integer, Boolean>comparing(n -> n % 2 != 0)
+                .thenComparing(Comparator.naturalOrder());
+        System.out.println(Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt)
+                .sorted(evensFirst)
+                .map(String::valueOf)
+                .collect(Collectors.joining(" ")));
     }
 }

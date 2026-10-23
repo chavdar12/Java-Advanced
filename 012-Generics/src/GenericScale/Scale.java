@@ -1,4 +1,4 @@
-package src.GenericScale;
+package GenericScale;
 
 public class Scale<T extends Comparable<T>> {
     private final T left;

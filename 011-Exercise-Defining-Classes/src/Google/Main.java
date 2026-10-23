@@ -1,8 +1,5 @@
-package src.Google;
+package Google;
 
-import src.OpinionPoll.Person;
-import src.PokemonTrainer.Pokemon;
-import src.SpeedRacing.Car;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +10,7 @@ import java.util.Map;
 public class Main {
 
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private static final Map<String, src.OpinionPoll.Person> people = new LinkedHashMap<>();
+    private static final Map<String, Person> people = new LinkedHashMap<>();
 
     public static void main(String[] args) throws IOException {
         gatherPersonalInformation();
@@ -32,7 +29,7 @@ public class Main {
         while (!"End".equals(input = reader.readLine())) {
             String[] tokens = input.split("\\s+");
             String personName = tokens[0];
-            people.putIfAbsent(personName, new src.OpinionPoll.Person(personName));
+            people.putIfAbsent(personName, new Person(personName));
 
             Person person = people.get(personName);
             String command = tokens[1];

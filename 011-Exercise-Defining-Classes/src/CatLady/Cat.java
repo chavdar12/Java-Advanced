@@ -1,4 +1,4 @@
-package src.CatLady;
+package CatLady;
 
 public abstract class Cat {
     private final String name;

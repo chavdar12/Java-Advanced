@@ -1,4 +1,4 @@
-package src.OpinionPoll;
+package OpinionPoll;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,13 +12,13 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(reader.readLine());
-        List<src.OpinionPoll.Person> people = new ArrayList<>();
+        List<Person> people = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             String[] tokens = reader.readLine().split(" ");
             String name = tokens[0];
             int age = Integer.parseInt(tokens[1]);
-            people.add(new src.OpinionPoll.Person(name, age));
+            people.add(new Person(name, age));
         }
 
         people.stream()

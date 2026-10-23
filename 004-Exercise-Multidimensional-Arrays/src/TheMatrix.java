@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Scanner;
 
 public class TheMatrix {
@@ -7,42 +5,32 @@ public class TheMatrix {
         Scanner scanner = new Scanner(System.in);
         String[] input = scanner.nextLine().split(" ");
         int rows = Integer.parseInt(input[0]);
-        int cols = Integer.parseInt(input[1]);
-        char[][] matrix = new char[rows][cols];
+        char[][] matrix = new char[rows][];
         for (int row = 0; row < rows; row++) {
-            String line = scanner.nextLine();
-            for (int col = 0; col < cols; col++) {
-                matrix[row][col] = line.charAt(col);
-            }
+            matrix[row] = scanner.nextLine().replace(" ", "").toCharArray();
         }
-        String[] coordinates = scanner.nextLine().split(" ");
-        int startRow = Integer.parseInt(coordinates[0]);
-        int startCol = Integer.parseInt(coordinates[1]);
+        // last line: "<fillChar> <row> <col>"
+        String[] tokens = scanner.nextLine().split(" ");
+        char fillChar = tokens[0].charAt(0);
+        int startRow = Integer.parseInt(tokens[1]);
+        int startCol = Integer.parseInt(tokens[2]);
         char symbol = matrix[startRow][startCol];
-        fillMatrix(matrix, startRow, startCol, symbol);
-        printMatrix(matrix);
+        if (symbol != fillChar) {
+            fillMatrix(matrix, startRow, startCol, symbol, fillChar);
+        }
+        for (char[] row : matrix) {
+            System.out.println(new String(row));
+        }
     }
 
-    private static void fillMatrix(char[][] matrix, int startRow, int startCol, char symbol) {
-        if (startRow < 0 || startRow >= matrix.length || startCol < 0 || startCol >= matrix[startRow].length) {
+    private static void fillMatrix(char[][] matrix, int row, int col, char symbol, char fillChar) {
+        if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[row].length || matrix[row][col] != symbol) {
             return;
         }
-        if (matrix[startRow][startCol] != symbol) {
-            return;
-        }
-        matrix[startRow][startCol] = '*';
-        fillMatrix(matrix, startRow - 1, startCol, symbol);
-        fillMatrix(matrix, startRow + 1, startCol, symbol);
-        fillMatrix(matrix, startRow, startCol - 1, symbol);
-        fillMatrix(matrix, startRow, startCol + 1, symbol);
-    }
-
-    private static void printMatrix(char[][] matrix) {
-        for (char[] chars : matrix) {
-            for (char aChar : chars) {
-                System.out.print(aChar);
-            }
-            System.out.println();
-        }
+        matrix[row][col] = fillChar;
+        fillMatrix(matrix, row - 1, col, symbol, fillChar);
+        fillMatrix(matrix, row + 1, col, symbol, fillChar);
+        fillMatrix(matrix, row, col - 1, symbol, fillChar);
+        fillMatrix(matrix, row, col + 1, symbol, fillChar);
     }
 }

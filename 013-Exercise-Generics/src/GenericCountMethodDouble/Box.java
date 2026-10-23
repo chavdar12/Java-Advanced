@@ -1,16 +1,16 @@
-package src.GenericCountMethodDouble;
+package GenericCountMethodDouble;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Box<T extends Comparable> {
+public class Box<T extends Comparable<T>> {
     private final List<T> collection;
 
     public Box() {
         this.collection = new ArrayList<>();
     }
 
-    public static <T extends Comparable> int compare(List<T> collection, T element) {
+    public static <T extends Comparable<T>> int compare(List<T> collection, T element) {
         int countOfGreaterElements = 0;
         for (T currentElement : collection) {
             if (currentElement.compareTo(element) > 0) {

@@ -1,4 +1,4 @@
-package src.FamilyTree;
+package FamilyTree;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,8 +8,8 @@ import java.util.List;
 public class Person {
     private String name;
     private String birthDate;
-    private final List<src.OpinionPoll.Person> parents;
-    private final List<src.OpinionPoll.Person> children;
+    private final List<Person> parents;
+    private final List<Person> children;
 
     public Person() {
         this.parents = new ArrayList<>();
@@ -44,20 +44,20 @@ public class Person {
         return this.birthDate;
     }
 
-    public Collection<src.OpinionPoll.Person> getParents() {
+    public Collection<Person> getParents() {
         return Collections.unmodifiableCollection(this.parents);
     }
 
-    public Collection<src.OpinionPoll.Person> getChildren() {
+    public Collection<Person> getChildren() {
         return Collections.unmodifiableCollection(this.children);
     }
 
-    public void addChild(src.OpinionPoll.Person child) {
+    public void addChild(Person child) {
         this.children.add(child);
         child.addParent(this);
     }
 
-    private void addParent(src.OpinionPoll.Person parent) {
+    private void addParent(Person parent) {
         this.parents.add(parent);
     }
 

@@ -1,5 +1,3 @@
-package src;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,7 +7,8 @@ public class DragonArmy {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
-        Map<String, Map<String, int[]>> dragons = new TreeMap<>();
+        // types keep input order, dragons of a type are sorted by name
+        Map<String, Map<String, int[]>> dragons = new LinkedHashMap<>();
         for (int i = 0; i < n; i++) {
             String[] tokens = scanner.nextLine().split(" ");
             String type = tokens[0];
@@ -17,9 +16,7 @@ public class DragonArmy {
             int damage = tokens[2].equals("null") ? 45 : Integer.parseInt(tokens[2]);
             int health = tokens[3].equals("null") ? 250 : Integer.parseInt(tokens[3]);
             int armor = tokens[4].equals("null") ? 10 : Integer.parseInt(tokens[4]);
-            dragons.putIfAbsent(type, new LinkedHashMap<>());
-            dragons.get(type).putIfAbsent(name, new int[3]);
-            dragons.get(type).put(name, new int[]{damage, health, armor});
+            dragons.computeIfAbsent(type, k -> new TreeMap<>()).put(name, new int[]{damage, health, armor});
         }
         dragons.forEach((key, value) -> {
             double averageDamage = value.values().stream().mapToInt(x -> x[0]).average().orElse(0);

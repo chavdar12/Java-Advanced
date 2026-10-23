@@ -1,8 +1,6 @@
-package src;
-
-import java.util.Map;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.Set;
 
 public class SetsOfElements {
     public static void main(String[] args) {
@@ -10,22 +8,18 @@ public class SetsOfElements {
         String[] input = scanner.nextLine().split(" ");
         int n = Integer.parseInt(input[0]);
         int m = Integer.parseInt(input[1]);
-        Map<Integer, Integer> firstSet = new TreeMap<>();
-        Map<Integer, Integer> secondSet = new TreeMap<>();
+        Set<Integer> firstSet = new LinkedHashSet<>();
+        Set<Integer> secondSet = new LinkedHashSet<>();
         for (int i = 0; i < n; i++) {
             int number = Integer.parseInt(scanner.nextLine());
-            firstSet.putIfAbsent(number, 0);
-            firstSet.put(number, firstSet.get(number) + 1);
+            firstSet.add(number);
         }
         for (int i = 0; i < m; i++) {
             int number = Integer.parseInt(scanner.nextLine());
-            secondSet.putIfAbsent(number, 0);
-            secondSet.put(number, secondSet.get(number) + 1);
+            secondSet.add(number);
         }
-        firstSet.forEach((key, value) -> {
-            if (secondSet.containsKey(key)) {
-                System.out.print(key + " ");
-            }
-        });
+        firstSet.stream()
+                .filter(secondSet::contains)
+                .forEach(number -> System.out.print(number + " "));
     }
 }

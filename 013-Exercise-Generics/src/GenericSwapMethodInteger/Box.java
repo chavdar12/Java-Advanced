@@ -1,4 +1,4 @@
-package src.GenericSwapMethodInteger;
+package GenericSwapMethodInteger;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,16 @@
-package src;
-
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
 public class CountUppercaseWords {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] input = scanner.nextLine().split(" ");
-        Predicate<String> isUppercase = s -> Character.isUpperCase(s.charAt(0));
-        Arrays.stream(input)
+        Predicate<String> isUppercase = s -> !s.isEmpty() && Character.isUpperCase(s.charAt(0));
+        List<String> words = Arrays.stream(scanner.nextLine().split(" "))
                 .filter(isUppercase)
-                .forEach(System.out::println);
+                .toList();
+        System.out.println(words.size());
+        words.forEach(System.out::println);
     }
 }

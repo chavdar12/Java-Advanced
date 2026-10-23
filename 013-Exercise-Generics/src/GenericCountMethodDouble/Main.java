@@ -1,6 +1,5 @@
-package src.GenericCountMethodDouble;
+package GenericCountMethodDouble;
 
-import src.GenericBox.Box;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +14,11 @@ public class Main {
         Box<Double> box = new Box<>();
 
         while (n-- > 0) {
-            box.addElement(Double.parseDouble(reader.readLine()));
+            box.getCollection().add(Double.parseDouble(reader.readLine()));
         }
 
         double element = Double.parseDouble(reader.readLine());
 
-        System.out.println(box.countGreaterElements(element));
+        System.out.println(Box.compare(box.getCollection(), element));
     }
 }

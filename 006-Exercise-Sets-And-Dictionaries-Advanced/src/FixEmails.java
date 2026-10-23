@@ -1,5 +1,3 @@
-package src;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,8 +10,10 @@ public class FixEmails {
         while (!input.equals("stop")) {
             String name = input;
             String email = scanner.nextLine();
-            emails.putIfAbsent(name, email);
-            emails.put(name, emails.get(name) + email);
+            String domain = email.toLowerCase();
+            if (!domain.endsWith("us") && !domain.endsWith("uk") && !domain.endsWith("com")) {
+                emails.put(name, email);
+            }
             input = scanner.nextLine();
         }
         emails.forEach((key, value) -> System.out.println(key + " -> " + value));

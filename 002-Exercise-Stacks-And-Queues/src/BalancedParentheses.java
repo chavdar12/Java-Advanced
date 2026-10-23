@@ -1,7 +1,4 @@
-package src;
-
 import java.util.ArrayDeque;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class BalancedParentheses {
@@ -32,7 +29,7 @@ public class BalancedParentheses {
                 }
             }
         }
-        if (isBalanced) {
+        if (isBalanced && stack.isEmpty()) {
             System.out.println("YES");
         } else {
             System.out.println("NO");

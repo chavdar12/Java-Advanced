@@ -1,4 +1,4 @@
-package src.CarSalesman;
+package CarSalesman;
 
 public class Engine {
     private static final String DEFAULT_VALUE = "n/a";

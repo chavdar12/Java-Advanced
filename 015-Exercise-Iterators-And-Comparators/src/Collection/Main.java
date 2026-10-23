@@ -1,4 +1,4 @@
-package src.Collection;
+package Collection;
 
 import java.io.BufferedReader;
 import java.io.IOException;

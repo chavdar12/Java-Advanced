@@ -1,4 +1,4 @@
-package src.GenericBox;
+package GenericBox;
 
 public class Box<T> {
     private T element;
@@ -17,6 +17,6 @@ public class Box<T> {
 
     @Override
     public String toString() {
-        return "java.lang.String: " + element;
+        return element.getClass().getName() + ": " + element;
     }
 }

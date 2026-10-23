@@ -1,23 +1,22 @@
-package src.CarSalesman;
+package CarSalesman;
 
-import src.RawData.Engine;
 
 public class Car {
     private static final String DEFAULT_VALUE = "n/a";
 
     private final String model;
-    private final src.RawData.Engine engine;
+    private final Engine engine;
     private String weight;
     private String color;
 
-    public Car(String model, src.RawData.Engine engine, String weight, String color) {
+    public Car(String model, Engine engine, String weight, String color) {
         this.model = model;
         this.engine = engine;
         this.weight = weight;
         this.color = color;
     }
 
-    public Car(String model, src.RawData.Engine engine, String value) {
+    public Car(String model, Engine engine, String value) {
         this(model, engine, DEFAULT_VALUE, DEFAULT_VALUE);
         if (value.matches("-?\\d+(\\.\\d+)?")) {
             this.weight = value;

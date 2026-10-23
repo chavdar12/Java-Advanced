@@ -1,13 +1,12 @@
-package src;
-
 import java.util.Scanner;
 
 public class SumMatrixElements {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int rows = Integer.parseInt(scanner.nextLine());
-        int cols = Integer.parseInt(scanner.nextLine());
+        String[] dimensions = scanner.nextLine().split(", ");
+        int rows = Integer.parseInt(dimensions[0]);
+        int cols = Integer.parseInt(dimensions[1]);
 
         int[][] matrix = new int[rows][cols];
 

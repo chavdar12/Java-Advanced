@@ -1,6 +1,6 @@
-package src.StrategyPattern;
+package StrategyPattern;
 
-public class Person implements Comparable<src.ComparingObjects.Person> {
+public class Person implements Comparable<Person> {
     private final String name;
     private final int age;
 
@@ -18,7 +18,7 @@ public class Person implements Comparable<src.ComparingObjects.Person> {
     }
 
     @Override
-    public int compareTo(src.ComparingObjects.Person other) {
+    public int compareTo(Person other) {
         int result = this.name.compareTo(other.name);
         if (result == 0) {
             result = this.age - other.age;

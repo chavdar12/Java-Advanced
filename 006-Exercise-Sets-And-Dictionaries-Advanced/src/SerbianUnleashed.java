@@ -1,30 +1,32 @@
-package src;
-
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SerbianUnleashed {
+    // "{singer} @{venue} {ticketsPrice} {ticketsCount}", singer and venue are one to three words
+    private static final Pattern CONCERT = Pattern.compile(
+            "^(?<singer>[A-Za-z]+(?: [A-Za-z]+){0,2}) @(?<venue>[A-Za-z]+(?: [A-Za-z]+){0,2}) (?<price>\\d+) (?<count>\\d+)$");
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Set<String> singers = new LinkedHashSet<>();
+        Map<String, Map<String, Long>> venues = new LinkedHashMap<>();
         String input = scanner.nextLine();
         while (!input.equals("End")) {
-            String[] tokens = input.split(" @");
-            if (tokens.length == 2) {
-                String singer = tokens[0];
-                String[] venueAndTickets = tokens[1].split(" ");
-                if (venueAndTickets.length == 3) {
-                    String venue = venueAndTickets[0];
-                    int ticketsPrice = Integer.parseInt(venueAndTickets[1]);
-                    int ticketsCount = Integer.parseInt(venueAndTickets[2]);
-                    int totalMoney = ticketsPrice * ticketsCount;
-                    System.out.println(singer + " @ " + venue + " " + totalMoney);
-                    singers.add(singer);
-                }
+            Matcher matcher = CONCERT.matcher(input);
+            if (matcher.matches()) {
+                long money = Long.parseLong(matcher.group("price")) * Long.parseLong(matcher.group("count"));
+                venues.computeIfAbsent(matcher.group("venue"), k -> new LinkedHashMap<>())
+                        .merge(matcher.group("singer"), money, Long::sum);
             }
             input = scanner.nextLine();
         }
-        singers.forEach(System.out::println);
+        venues.forEach((venue, singers) -> {
+            System.out.println(venue);
+            singers.entrySet().stream()
+                    .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                    .forEach(singer -> System.out.printf("#  %s -> %d%n", singer.getKey(), singer.getValue()));
+        });
     }
 }

@@ -1,4 +1,4 @@
-package src.OpinionPoll;
+package OpinionPoll;
 
 public class Person {
     private String name;

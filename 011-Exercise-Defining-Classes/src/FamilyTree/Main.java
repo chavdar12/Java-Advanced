@@ -1,6 +1,5 @@
-package src.FamilyTree;
+package FamilyTree;
 
-import src.OpinionPoll.Person;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,16 +35,16 @@ public class Main {
 
     private static void readDescendent() throws IOException {
         familyTree = new FamilyTree();
-        src.OpinionPoll.Person descendent = initPerson(reader.readLine());
+        Person descendent = initPerson(reader.readLine());
         familyTree.setDescendent(descendent);
     }
 
-    private static src.OpinionPoll.Person initPerson(String token) {
+    private static Person initPerson(String token) {
         String[] tokens = token.split("\\s+");
         if (tokens.length == 2) {
             String givenName = tokens[0];
             String familyName = tokens[1];
-            return new src.OpinionPoll.Person(givenName, familyName);
+            return new Person(givenName, familyName);
         } else {
             String birthDate = tokens[0];
             return new Person(birthDate);

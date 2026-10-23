@@ -1,71 +1,37 @@
-package src;
-
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FindTheRealQueen {
+    private static final int SIZE = 8;
+    private static final int[][] DIRECTIONS = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        char[][] matrix = new char[8][8];
-
-        for (int row = 0; row < 8; row++) {
-            matrix[row] = scanner.nextLine().replaceAll("\\s+", "").toCharArray();
+        char[][] board = new char[SIZE][];
+        for (int row = 0; row < SIZE; row++) {
+            board[row] = scanner.nextLine().replaceAll("\\s+", "").toCharArray();
         }
-
-        int[] queenPosition = new int[2];
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (matrix[row][col] == 'q') {
-                    queenPosition[0] = row;
-                    queenPosition[1] = col;
-                    break;
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board[row][col] == 'q' && !isAttacked(board, row, col)) {
+                    System.out.println(row + " " + col);
+                    return;
                 }
             }
         }
+    }
 
-        boolean isQueen = true;
-
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                if (matrix[row][col] == 'q' && (row != queenPosition[0] || col != queenPosition[1])) {
-                    isQueen = false;
-                    break;
+    private static boolean isAttacked(char[][] board, int row, int col) {
+        for (int[] direction : DIRECTIONS) {
+            int r = row + direction[0];
+            int c = col + direction[1];
+            while (r >= 0 && r < SIZE && c >= 0 && c < SIZE) {
+                if (board[r][c] == 'q') {
+                    return true;
                 }
+                r += direction[0];
+                c += direction[1];
             }
         }
-
-        if (isQueen) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    if (row == queenPosition[0] || col == queenPosition[1]) {
-                        if (matrix[row][col] == 'q' && (row != queenPosition[0] || col != queenPosition[1])) {
-                            isQueen = false;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (isQueen) {
-            for (int row = 0; row < 8; row++) {
-                for (int col = 0; col < 8; col++) {
-                    if (Math.abs(row - queenPosition[0]) == Math.abs(col - queenPosition[1])) {
-                        if (matrix[row][col] == 'q' && (row != queenPosition[0] || col != queenPosition[1])) {
-                            isQueen = false;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (isQueen) {
-            System.out.println(Arrays.toString(queenPosition).replaceAll("[\\[\\],]", ""));
-        } else {
-            System.out.println("The queen is not alone");
-        }
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package src.PokemonTrainer;
+package PokemonTrainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Trainer {
     private final String name;
     private int badgesCount = 0;
-    private List<src.PokemonTrainer.Pokemon> pokemons;
+    private List<Pokemon> pokemons;
 
     public Trainer(String name) {
         this.name = name;
@@ -27,7 +27,7 @@ public class Trainer {
         return this.pokemons.size();
     }
 
-    void add(src.PokemonTrainer.Pokemon pokemon) {
+    void add(Pokemon pokemon) {
         this.pokemons.add(pokemon);
     }
 
@@ -35,7 +35,7 @@ public class Trainer {
         if (isPokemon(element)) {
             this.badgesCount++;
         } else {
-            pokemons.forEach(src.PokemonTrainer.Pokemon::reduceHealth);
+            pokemons.forEach(Pokemon::reduceHealth);
             this.pokemons = this.pokemons.stream()
                     .filter(Pokemon::isAlive)
                     .collect(Collectors.toCollection(ArrayList::new));

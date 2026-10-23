@@ -1,4 +1,4 @@
-package src.CustomListSorter;
+package CustomListSorter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,6 +42,7 @@ public class Main {
                     break;
                 case "Sort":
                     Sorter.sort(list);
+                    break;
                 default:
                     break;
             }

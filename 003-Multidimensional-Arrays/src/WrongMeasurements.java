@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,26 +24,28 @@ public class WrongMeasurements {
         int wrongValueCol = wrongValue[1];
 
         int wrongValueReal = matrix[wrongValueRow][wrongValueCol];
+        // read neighbours from the original values so earlier replacements do not leak into later sums
+        int[][] original = Arrays.stream(matrix).map(int[]::clone).toArray(int[][]::new);
 
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                if (matrix[row][col] == wrongValueReal) {
+                if (original[row][col] == wrongValueReal) {
                     int sum = 0;
 
-                    if (row - 1 >= 0 && matrix[row - 1][col] != wrongValueReal) {
-                        sum += matrix[row - 1][col];
+                    if (row - 1 >= 0 && original[row - 1][col] != wrongValueReal) {
+                        sum += original[row - 1][col];
                     }
 
-                    if (row + 1 < rows && matrix[row + 1][col] != wrongValueReal) {
-                        sum += matrix[row + 1][col];
+                    if (row + 1 < rows && original[row + 1][col] != wrongValueReal) {
+                        sum += original[row + 1][col];
                     }
 
-                    if (col - 1 >= 0 && matrix[row][col - 1] != wrongValueReal) {
-                        sum += matrix[row][col - 1];
+                    if (col - 1 >= 0 && original[row][col - 1] != wrongValueReal) {
+                        sum += original[row][col - 1];
                     }
 
-                    if (col + 1 < cols && matrix[row][col + 1] != wrongValueReal) {
-                        sum += matrix[row][col + 1];
+                    if (col + 1 < cols && original[row][col + 1] != wrongValueReal) {
+                        sum += original[row][col + 1];
                     }
 
                     matrix[row][col] = sum;

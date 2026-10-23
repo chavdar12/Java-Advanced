@@ -1,20 +1,20 @@
-package src;
-
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class SortEvenNumbers {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] input = scanner.nextLine().split(", ");
-        int[] numbers = new int[input.length];
-        for (int i = 0; i < input.length; i++) {
-            numbers[i] = Integer.parseInt(input[i]);
-        }
-        Arrays.stream(numbers)
+        List<Integer> evens = Arrays.stream(scanner.nextLine().split(", "))
+                .map(Integer::parseInt)
                 .filter(n -> n % 2 == 0)
-                .sorted()
-                .forEach(n -> System.out.print(n + ", "));
+                .toList();
+        System.out.println(join(evens));
+        System.out.println(join(evens.stream().sorted().toList()));
+    }
 
+    private static String join(List<Integer> numbers) {
+        return numbers.stream().map(String::valueOf).collect(Collectors.joining(", "));
     }
 }

@@ -1,4 +1,4 @@
-package src.CompanyRoster;
+package CompanyRoster;
 
 import java.util.ArrayList;
 import java.util.List;

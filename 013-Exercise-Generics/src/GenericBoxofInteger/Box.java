@@ -1,4 +1,4 @@
-package src.GenericBoxofInteger;
+package GenericBoxofInteger;
 
 public class Box<T> {
     private T element;
@@ -17,6 +17,6 @@ public class Box<T> {
 
     @Override
     public String toString() {
-        return "java.lang.Integer: " + element;
+        return element.getClass().getName() + ": " + element;
     }
 }

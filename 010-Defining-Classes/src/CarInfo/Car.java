@@ -1,4 +1,4 @@
-package src.CarInfo;
+package CarInfo;
 
 public class Car {
     private String brand;
@@ -33,5 +33,9 @@ public class Car {
 
     public void setHorsePower(int horsePower) {
         this.horsePower = horsePower;
+    }
+
+    public String carInfo() {
+        return String.format("The car is: %s %s - %d HP.", brand, model, horsePower);
     }
 }

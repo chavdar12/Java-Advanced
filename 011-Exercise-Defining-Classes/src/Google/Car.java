@@ -1,4 +1,4 @@
-package src.Google;
+package Google;
 
 public class Car {
     private final String model;

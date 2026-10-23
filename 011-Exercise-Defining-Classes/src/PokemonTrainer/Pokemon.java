@@ -1,4 +1,4 @@
-package src.PokemonTrainer;
+package PokemonTrainer;
 
 public class Pokemon {
     private final String name;
@@ -20,6 +20,6 @@ public class Pokemon {
     }
 
     public boolean isAlive() {
-        return this.health > 10;
+        return this.health > 0;
     }
 }

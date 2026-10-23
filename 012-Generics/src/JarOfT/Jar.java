@@ -1,4 +1,4 @@
-package src.JarOfT;
+package JarOfT;
 
 import java.util.ArrayDeque;
 

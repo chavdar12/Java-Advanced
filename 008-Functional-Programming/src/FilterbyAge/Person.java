@@ -1,4 +1,4 @@
-package src.FilterbyAge;
+package FilterbyAge;
 
 public class Person {
     private String name;
