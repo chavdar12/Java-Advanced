@@ -1,4 +1,4 @@
-package FilterbyAge;
+package FilterByAge;
 
 import org.junit.jupiter.api.Test;
 

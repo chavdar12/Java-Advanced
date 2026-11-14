@@ -1,4 +1,4 @@
-package FilterbyAge;
+package FilterByAge;
 
 public class Person {
     private String name;

@@ -1,4 +1,4 @@
-package GenericBoxofInteger;
+package GenericBoxOfInteger;
 
 public class Box<T> {
     private T element;
