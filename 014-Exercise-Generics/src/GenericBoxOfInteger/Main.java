@@ -1,4 +1,4 @@
-package GenericBoxofInteger;
+package GenericBoxOfInteger;
 
 
 import java.io.BufferedReader;

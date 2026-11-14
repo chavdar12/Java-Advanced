@@ -1,4 +1,4 @@
-package FilterbyAge;
+package FilterByAge;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
